@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_planner/core/image-picker.dart';
+import 'package:meal_planner/widgets/image-picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:uuid/uuid.dart';
 
@@ -100,7 +100,8 @@ class _RecipeFormState extends State<RecipeForm> {
 
   @override
   Widget build(BuildContext context) {
-    final imageTag = widget.initial != null ? 'recipe/${widget.initial.id}' : null;
+    final imageTag =
+        widget.initial != null ? 'recipe/${widget.initial.id}' : null;
 
     return ReactiveForm(
         formGroup: form,
@@ -112,7 +113,8 @@ class _RecipeFormState extends State<RecipeForm> {
               child: ReactiveTextField(
                 formControlName: 'title',
                 autofocus: true,
-                decoration: InputDecoration(border: InputBorder.none, hintText: 'Recipe title'),
+                decoration: InputDecoration(
+                    border: InputBorder.none, hintText: 'Recipe title'),
                 textInputAction: TextInputAction.next,
                 onSubmitted: () => form.focus('link'),
               ),

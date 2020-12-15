@@ -3,8 +3,8 @@ import 'package:meal_planner/screens/home.dart';
 import 'package:meal_planner/screens/login.dart';
 import 'package:meal_planner/services/auth.dart';
 
-class Wrapper extends StatelessWidget {
-  Wrapper({Key key}) : super(key: key);
+class AuthSwitcher extends StatelessWidget {
+  AuthSwitcher({Key key}) : super(key: key);
   final authService = AuthService();
 
   @override
