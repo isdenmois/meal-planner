@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meal_planner/screens/product-store.dart';
+import 'package:meal_planner/screens/products/products-list_page.dart';
 import 'package:meal_planner/screens/recipe/recipe-list_page.dart';
 
 class HomeScreen extends StatelessWidget {
