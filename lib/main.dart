@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:meal_planner/widgets/auth-switcher.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.white,
+    systemNavigationBarDividerColor: Colors.black,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(App());

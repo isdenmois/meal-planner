@@ -19,6 +19,7 @@ class RecipeListPage extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text('Recipe list', style: headerStyle),
         iconTheme: IconThemeData(color: Colors.black),
+        brightness: Brightness.light,
         actions: [
           InkWell(
               onTap: () => openAddRecipeScreen(context),

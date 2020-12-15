@@ -20,6 +20,7 @@ class ProductListPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
+        brightness: Brightness.light,
       ),
       body: StreamProgressBuilder(
         stream: products,
