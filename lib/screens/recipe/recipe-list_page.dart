@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_planner/screens/recipe/recipe-add_page.dart';
 import 'package:meal_planner/screens/recipe/recipe_repository.dart';
-import 'package:meal_planner/services/auth.dart';
 import 'package:meal_planner/widgets/stream-progress-builder.dart';
 
 import 'recipe-edit_page.dart';
@@ -10,45 +9,26 @@ import 'recipe.dart';
 
 class RecipeListPage extends StatelessWidget {
   final recipes = recipesStream();
+  final headerStyle = TextStyle(color: Colors.black);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recipe list'),
         elevation: 0,
-        // backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
+        title: Text('Recipe list', style: headerStyle),
+        iconTheme: IconThemeData(color: Colors.black),
         actions: [
           InkWell(
               onTap: () => openAddRecipeScreen(context),
               child: Padding(
                 padding: EdgeInsets.only(left: 10, right: 10),
-                child: Icon(
-                  Icons.add,
-                  size: 26.0,
-                ),
+                child: Icon(Icons.add, size: 26.0),
               )),
         ],
       ),
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Color(0xFF3D9098),
-              ),
-            ),
-            ListTile(
-              title: Text('Log out'),
-              onTap: () {
-                AuthService().logOut();
-              },
-            ),
-          ],
-        ),
-      ),
       body: StreamProgressBuilder(
         stream: recipes,
         builder: (context, List<Recipe> list) => ListView(
