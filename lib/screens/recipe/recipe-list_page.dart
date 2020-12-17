@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_planner/screens/recipe/recipe-add_page.dart';
+import 'package:meal_planner/screens/recipe/recipe-view_page.dart';
 import 'package:meal_planner/screens/recipe/recipe_repository.dart';
 import 'package:meal_planner/widgets/stream-progress-builder.dart';
 
-import 'recipe-edit_page.dart';
 import 'recipe.dart';
 
 class RecipeListPage extends StatelessWidget {
@@ -77,7 +77,7 @@ class RecipeItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 15),
       color: theme.backgroundColor,
       child: InkWell(
-          onTap: () => openEditRecipeScreen(context),
+          onTap: () => openRecipeViewScreen(context),
           child: Padding(
               padding: EdgeInsets.all(15),
               child: Row(
@@ -105,10 +105,10 @@ class RecipeItem extends StatelessWidget {
     );
   }
 
-  openEditRecipeScreen(BuildContext context) {
+  openRecipeViewScreen(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RecipeEditPage(recipe)),
+      MaterialPageRoute(builder: (context) => RecipeViewScreen(recipe: recipe)),
     );
   }
 }

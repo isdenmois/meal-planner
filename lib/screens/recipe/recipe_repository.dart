@@ -9,6 +9,14 @@ Stream<List<Recipe>> recipesStream() {
   });
 }
 
+Stream<Recipe> recipeStream(String id) {
+  return FirebaseFirestore.instance
+      .collection('recipes')
+      .doc(id)
+      .snapshots()
+      .map((snapshot) => Recipe.fromJson(snapshot.id, snapshot.data()));
+}
+
 Future createRecipe(Recipe recipe) {
   return FirebaseFirestore.instance.collection('recipes').add(recipe.toMap());
 }
