@@ -9,17 +9,12 @@ import 'recipe.dart';
 
 class RecipeListPage extends StatelessWidget {
   final recipes = recipesStream();
-  final headerStyle = TextStyle(color: Colors.black);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Text('Recipe list', style: headerStyle),
-        iconTheme: IconThemeData(color: Colors.black),
-        brightness: Brightness.light,
+        title: Text('Recipe list'),
         actions: [
           InkWell(
               onTap: () => openAddRecipeScreen(context),
@@ -29,7 +24,6 @@ class RecipeListPage extends StatelessWidget {
               )),
         ],
       ),
-      backgroundColor: Colors.white,
       body: StreamProgressBuilder(
         stream: recipes,
         builder: (context, List<Recipe> list) => ListView(
@@ -48,19 +42,40 @@ class RecipeListPage extends StatelessWidget {
   }
 }
 
+class RecipeStyle {
+  final Color backgroundColor;
+  final TextStyle title;
+  final TextStyle subtitle;
+
+  RecipeStyle({this.backgroundColor, this.title, this.subtitle});
+}
+
 class RecipeItem extends StatelessWidget {
   final Recipe recipe;
 
   RecipeItem(this.recipe);
 
-  final titleStyle = TextStyle(fontSize: 20, color: Color(0xFF292550));
-  final subtitleStyle = TextStyle(fontSize: 12, color: Color(0xFF8A86AC));
+  final themes = {
+    Brightness.light: RecipeStyle(
+      backgroundColor: Color(0xFFF7F5FF),
+      title: TextStyle(fontSize: 20, color: Color(0xFF292550)),
+      subtitle: TextStyle(fontSize: 12, color: Color(0xFF8A86AC)),
+    ),
+    Brightness.dark: RecipeStyle(
+      backgroundColor: Color(0xFF424242),
+      title: TextStyle(fontSize: 20, color: Colors.white),
+      subtitle: TextStyle(fontSize: 12, color: Colors.white70),
+    ),
+  };
 
   @override
   Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final theme = themes[brightness] ?? themes[Brightness.light];
+
     return Card(
       margin: EdgeInsets.only(bottom: 15),
-      color: Color(0xFFF7F5FF),
+      color: theme.backgroundColor,
       child: InkWell(
           onTap: () => openEditRecipeScreen(context),
           child: Padding(
@@ -81,8 +96,8 @@ class RecipeItem extends StatelessWidget {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(recipe.title, style: titleStyle),
-                      Text('Portions: ${recipe.portion}', style: subtitleStyle),
+                      Text(recipe.title, style: theme.title),
+                      Text('Portions: ${recipe.portion}', style: theme.subtitle),
                     ],
                   ))
                 ],

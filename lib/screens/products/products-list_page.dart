@@ -9,19 +9,10 @@ import 'product.dart';
 class ProductListPage extends StatelessWidget {
   final products = productList();
 
-  final headerStyle = TextStyle(color: Colors.black);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('Shopping list', style: headerStyle),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-        brightness: Brightness.light,
-      ),
+      appBar: AppBar(title: Text('Shopping list')),
       body: StreamProgressBuilder(
         stream: products,
         builder: (context, List<Product> list) {
