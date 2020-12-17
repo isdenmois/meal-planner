@@ -23,3 +23,11 @@ Future updateProduct(Product product) {
 Future removeProduct(Product product) {
   return FirebaseFirestore.instance.collection('products').doc(product.id).delete();
 }
+
+Future removeAllBoughtProducts() async {
+  final products = await FirebaseFirestore.instance.collection('products').where('bought', isEqualTo: true).get();
+
+  for (QueryDocumentSnapshot product in products.docs) {
+    product.reference.delete();
+  }
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_planner/screens/products/product-add_dialog.dart';
 import 'package:meal_planner/screens/products/product_repository.dart';
 import 'package:meal_planner/services/auth.dart';
+import 'package:meal_planner/widgets/confirm-dialog-builder.dart';
 import 'package:meal_planner/widgets/stream-progress-builder.dart';
 
 import 'product-item.dart';
@@ -13,7 +14,17 @@ class ProductListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Shopping list')),
+      appBar: AppBar(
+        title: Text('Shopping list'),
+        actions: [
+          InkWell(
+              onTap: () => openConfirmRemoveDialog(context),
+              child: Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Icon(Icons.delete),
+              )),
+        ],
+      ),
       body: StreamProgressBuilder(
         stream: products,
         builder: (context, List<Product> list) {
@@ -55,5 +66,12 @@ class ProductListPage extends StatelessWidget {
 
   openAddProductDialog(BuildContext context) {
     showModalBottomSheet(context: context, isScrollControlled: true, builder: ProductAddDialog.dialogBuilder);
+  }
+
+  openConfirmRemoveDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: confirmDialogBuilder(
+            message: "Do you want to remove all bought products?", onSuccess: removeAllBoughtProducts));
   }
 }
