@@ -3,12 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'product.dart';
 
 Stream<List<Product>> productList() {
-  return FirebaseFirestore.instance
-      .collection('products')
-      .orderBy('bought')
-      .orderBy('title')
-      .snapshots()
-      .map((snapshot) {
+  return FirebaseFirestore.instance.collection('products').orderBy('title').snapshots().map((snapshot) {
     return snapshot.docs.map((s) => Product.fromJson(s.id, s.data())).toList();
   });
 }
@@ -23,4 +18,8 @@ Future createProduct(Product product) {
 
 Future updateProduct(Product product) {
   return FirebaseFirestore.instance.collection('products').doc(product.id).set(product.toMap());
+}
+
+Future removeProduct(Product product) {
+  return FirebaseFirestore.instance.collection('products').doc(product.id).delete();
 }
