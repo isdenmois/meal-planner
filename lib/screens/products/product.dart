@@ -6,6 +6,14 @@ class Product {
 
   Product({this.id, this.title, this.bought, this.count});
 
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'bought': bought,
+      'count': count,
+    };
+  }
+
   static Product fromJson(String id, Map<String, dynamic> map) => Product(
         id: id,
         title: map['title'],

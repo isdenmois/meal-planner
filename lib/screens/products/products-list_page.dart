@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_planner/screens/products/product-add_dialog.dart';
 import 'package:meal_planner/screens/products/product_repository.dart';
 import 'package:meal_planner/services/auth.dart';
 import 'package:meal_planner/widgets/stream-progress-builder.dart';
@@ -21,6 +22,8 @@ class ProductListPage extends StatelessWidget {
           );
         },
       ),
+      floatingActionButton:
+          FloatingActionButton(child: new Icon(Icons.add), onPressed: () => openAddProductDialog(context)),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -40,5 +43,9 @@ class ProductListPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  openAddProductDialog(BuildContext context) {
+    showModalBottomSheet(context: context, isScrollControlled: true, builder: ProductAddDialog.dialogBuilder);
   }
 }

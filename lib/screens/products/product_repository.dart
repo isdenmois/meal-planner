@@ -6,7 +6,7 @@ Stream<List<Product>> productList() {
   return FirebaseFirestore.instance
       .collection('products')
       .orderBy('bought')
-      // .orderBy('title')
+      .orderBy('title')
       .snapshots()
       .map((snapshot) {
     return snapshot.docs.map((s) => Product.fromJson(s.id, s.data())).toList();
@@ -15,4 +15,8 @@ Stream<List<Product>> productList() {
 
 Future toggleProduct(Product product) {
   return FirebaseFirestore.instance.collection('products').doc(product.id).update({'bought': !product.bought});
+}
+
+Future createProduct(Product product) {
+  return FirebaseFirestore.instance.collection('products').add(product.toMap());
 }
