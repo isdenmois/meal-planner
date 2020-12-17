@@ -5,8 +5,9 @@ import 'product_repository.dart';
 
 class ProductLine extends StatelessWidget {
   final Product product;
+  final onLongPress;
 
-  ProductLine({Key key, @required this.product}) : super(key: key);
+  ProductLine({Key key, @required this.product, this.onLongPress}) : super(key: key);
 
   final lineThroughStyle = TextStyle(decoration: TextDecoration.lineThrough);
 
@@ -16,6 +17,7 @@ class ProductLine extends StatelessWidget {
       elevation: 2,
       child: InkWell(
         onTap: toggle,
+        onLongPress: longTap,
         child: Container(
           padding: const EdgeInsets.all(10),
           child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -32,5 +34,9 @@ class ProductLine extends StatelessWidget {
 
   toggle() {
     toggleProduct(product);
+  }
+
+  longTap() {
+    onLongPress(product);
   }
 }

@@ -58,7 +58,11 @@ class _ProductFormState extends State<ProductForm> {
     Navigator.pop(context);
 
     final parts = input.split(':');
-    final product = Product(title: parts[0].trim(), bought: false);
+    final product = Product(
+      id: widget.product?.id,
+      title: parts[0].trim(),
+      bought: false,
+    );
 
     if (parts.length > 1 && parts[1].trim().isNotEmpty) {
       product.count = parts[1].trim();

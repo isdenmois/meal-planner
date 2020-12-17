@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_planner/screens/products/product-add_dialog.dart';
+import 'package:meal_planner/screens/products/product-edit_dialog.dart';
 import 'package:meal_planner/screens/products/product_repository.dart';
 import 'package:meal_planner/services/auth.dart';
 import 'package:meal_planner/widgets/stream-progress-builder.dart';
@@ -18,7 +19,13 @@ class ProductListPage extends StatelessWidget {
         stream: products,
         builder: (context, List<Product> list) {
           return ListView(
-            children: list.map((product) => ProductLine(key: Key(product.id.toString()), product: product)).toList(),
+            children: list
+                .map((product) => ProductLine(
+                      key: Key(product.id.toString()),
+                      product: product,
+                      onLongPress: (product) => openEditProductDialog(context, product),
+                    ))
+                .toList(),
           );
         },
       ),
@@ -47,5 +54,9 @@ class ProductListPage extends StatelessWidget {
 
   openAddProductDialog(BuildContext context) {
     showModalBottomSheet(context: context, isScrollControlled: true, builder: ProductAddDialog.dialogBuilder);
+  }
+
+  openEditProductDialog(BuildContext context, Product product) {
+    showModalBottomSheet(context: context, isScrollControlled: true, builder: (_) => ProductEditDialog(product));
   }
 }

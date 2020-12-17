@@ -20,3 +20,7 @@ Future toggleProduct(Product product) {
 Future createProduct(Product product) {
   return FirebaseFirestore.instance.collection('products').add(product.toMap());
 }
+
+Future updateProduct(Product product) {
+  return FirebaseFirestore.instance.collection('products').doc(product.id).set(product.toMap());
+}
