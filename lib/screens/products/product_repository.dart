@@ -31,3 +31,12 @@ Future removeAllBoughtProducts() async {
     product.reference.delete();
   }
 }
+
+Future createUniqueProduct(Product product) async {
+  final products =
+      await FirebaseFirestore.instance.collection('products').where('title', isEqualTo: product.title).limit(1).get();
+
+  if (products.size == 0) {
+    return createProduct(product);
+  }
+}

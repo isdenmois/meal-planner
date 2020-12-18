@@ -39,6 +39,7 @@ class _RecipeFormState extends State<RecipeForm> {
       'portion': initial.portion.toString(),
       'link': initial.link,
       'steps': initial.steps ?? [],
+      'ingredients': initial.ingredients ?? [],
     });
   }
 
@@ -47,9 +48,11 @@ class _RecipeFormState extends State<RecipeForm> {
     'portion': [Validators.number],
     'link': '',
     'steps': FormArray<String>([]),
+    'ingredients': FormArray<String>([]),
   });
 
   FormArray<String> get steps => this.form.control('steps');
+  FormArray<String> get ingredients => this.form.control('ingredients');
 
   setImage(File file) {
     setState(() {
@@ -77,6 +80,13 @@ class _RecipeFormState extends State<RecipeForm> {
         .where((step) => step != null && step.length > 0)
         .toList();
 
+    final ingredients = this
+        .ingredients
+        .controls
+        .map((control) => control.value?.trim())
+        .where((ingredient) => ingredient != null && ingredient.length > 0)
+        .toList();
+
     Recipe result = Recipe(
       id: widget.initial?.id,
       title: form.value['title'],
@@ -84,10 +94,11 @@ class _RecipeFormState extends State<RecipeForm> {
       imageURL: imageURL,
       link: form.value['link'],
       steps: steps,
+      ingredients: ingredients,
     );
 
     try {
-      await widget.onSave(result);
+      widget.onSave(result);
 
       Navigator.pop(context);
     } finally {
@@ -159,7 +170,7 @@ class _RecipeFormState extends State<RecipeForm> {
                         ),
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.next,
-                        onSubmitted: () => form.focus('steps'),
+                        onSubmitted: () => form.focus('ingredients'),
                       ),
                     ],
                   ),
@@ -167,6 +178,25 @@ class _RecipeFormState extends State<RecipeForm> {
               ]),
               SizedBox(height: 30),
               Text('Ingredients', style: headerStyle),
+              ReactiveFormArray<String>(
+                formArrayName: 'ingredients',
+                builder: (context, formArray, child) => Column(
+                  children: formArray.controls
+                      .map((control) => ReactiveTextField(
+                            key: ObjectKey(control),
+                            formControl: control as FormControl<String>,
+                            textCapitalization: TextCapitalization.sentences,
+                            textInputAction: TextInputAction.next,
+                            onSubmitted: () => formArray.focus('ingredients'),
+                          ))
+                      .toList(),
+                ),
+              ),
+              IconButton(
+                color: Colors.blue[800],
+                icon: Icon(Icons.add, size: 48),
+                onPressed: addIngredient,
+              ),
               SizedBox(height: 15),
               Text('Steps', style: headerStyle),
               ReactiveFormArray<String>(
@@ -195,6 +225,16 @@ class _RecipeFormState extends State<RecipeForm> {
 
   focusNextField() {
     FocusScope.of(context).nextFocus();
+  }
+
+  addIngredient() {
+    final control = fb.control('');
+
+    ingredients.add(control);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      control.focus();
+    });
   }
 
   addStep() {

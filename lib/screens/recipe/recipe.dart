@@ -5,8 +5,9 @@ class Recipe {
   String imageURL;
   String link;
   List<String> steps;
+  List<String> ingredients;
 
-  Recipe({this.id, this.title, this.portion, this.imageURL, this.link, this.steps});
+  Recipe({this.id, this.title, this.portion, this.imageURL, this.link, this.steps, this.ingredients});
 
   Map<String, dynamic> toMap() {
     return {
@@ -15,6 +16,7 @@ class Recipe {
       'imageURL': imageURL,
       'link': link,
       'steps': steps,
+      'ingredients': ingredients,
     };
   }
 
@@ -25,5 +27,6 @@ class Recipe {
         imageURL: map['imageURL'],
         link: map['link'],
         steps: map['steps'] != null ? List<String>.from(map['steps']) : [],
+        ingredients: map['ingredients'] != null ? List<String>.from(map['ingredients']) : [],
       );
 }

@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_planner/screens/products/product.dart';
+import 'package:meal_planner/screens/products/product_repository.dart';
 import 'package:meal_planner/screens/recipe/recipe-edit_page.dart';
 import 'package:meal_planner/screens/recipe/recipe_repository.dart';
 import 'package:meal_planner/screens/recipe/widgets/recipe-header.dart';
@@ -29,6 +31,7 @@ class RecipeView extends StatelessWidget {
   RecipeView({this.recipe});
 
   final headerStyle = TextStyle(fontWeight: FontWeight.w700, fontSize: 23);
+  final sectionStyle = TextStyle(fontSize: 18);
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +41,10 @@ class RecipeView extends StatelessWidget {
         body: ListView(
           padding: EdgeInsets.only(left: 15, right: 15),
           children: [
-            Text('Ingredients'),
+            Text('Ingredients', style: sectionStyle),
+            ...buildIngredients(),
             SizedBox(height: 30),
-            Text('Steps', style: TextStyle(fontSize: 18)),
+            Text('Steps', style: sectionStyle),
             ...buildSteps(),
           ],
         ),
@@ -84,6 +88,12 @@ class RecipeView extends StatelessWidget {
     ];
   }
 
+  List<Widget> buildIngredients() {
+    if (recipe.steps == null) return [];
+
+    return recipe.ingredients.map((ingredient) => IngredientWidget(ingredient)).toList();
+  }
+
   List<Widget> buildSteps() {
     if (recipe.steps == null) return [];
 
@@ -107,5 +117,48 @@ class RecipeView extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => RecipeEditPage(recipe)),
     );
+  }
+}
+
+class IngredientWidget extends StatelessWidget {
+  final String ingredient;
+
+  IngredientWidget(this.ingredient);
+
+  final countStyle = TextStyle(color: Color(0xFF8A86AC));
+
+  @override
+  Widget build(BuildContext context) {
+    final parts = ingredient.split(':');
+    final title = parts[0].trim();
+    final count = parts.length > 1 ? parts[1].trim() : '';
+
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.only(top: 10),
+      child: InkWell(
+        onTap: () => addProduct(context),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text(title),
+            Text(count, style: countStyle),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  addProduct(BuildContext context) {
+    final parts = ingredient.split(':');
+    final product = Product(
+      title: parts[0].trim(),
+      count: parts.length > 1 ? parts[1].trim() : null,
+      bought: false,
+    );
+
+    createUniqueProduct(product);
+
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text('${product.title} has been added to product list')));
   }
 }
