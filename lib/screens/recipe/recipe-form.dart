@@ -112,6 +112,7 @@ class _RecipeFormState extends State<RecipeForm> {
                 formControlName: 'title',
                 autofocus: true,
                 decoration: InputDecoration(border: InputBorder.none, hintText: 'Recipe title'),
+                textCapitalization: TextCapitalization.sentences,
                 textInputAction: TextInputAction.next,
                 onSubmitted: () => form.focus('link'),
               ),
@@ -175,6 +176,7 @@ class _RecipeFormState extends State<RecipeForm> {
                       .map((control) => ReactiveTextField(
                             key: ObjectKey(control),
                             formControl: control as FormControl<String>,
+                            textCapitalization: TextCapitalization.sentences,
                             textInputAction: TextInputAction.next,
                             onSubmitted: () => formArray.focus('steps'),
                           ))

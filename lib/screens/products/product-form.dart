@@ -44,7 +44,7 @@ class _ProductFormState extends State<ProductForm> {
               filled: true,
               isDense: true,
             ),
-            keyboardType: TextInputType.name,
+            textCapitalization: TextCapitalization.sentences,
             textInputAction: TextInputAction.done,
             onSubmitted: () => submit(context),
           ),
