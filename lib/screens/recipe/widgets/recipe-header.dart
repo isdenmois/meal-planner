@@ -60,6 +60,7 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final percent = 1 - shrinkOffset / expandedHeight;
     final theme = Theme.of(context);
+    final radius = Radius.circular(30 * percent);
 
     return Stack(
       fit: StackFit.expand,
@@ -74,10 +75,10 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
               child: Container(
                 decoration: BoxDecoration(
                   color: theme.scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(30 * percent)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.25),
+                  borderRadius: BorderRadius.only(topLeft: radius, topRight: radius),
+                  boxShadow: const [
+                    const BoxShadow(
+                      color: Colors.black26,
                       spreadRadius: 0,
                       blurRadius: 2,
                       offset: Offset(0, -3), // changes position of shadow
