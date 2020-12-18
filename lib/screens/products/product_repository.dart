@@ -26,10 +26,13 @@ Future removeProduct(Product product) {
 
 Future removeAllBoughtProducts() async {
   final products = await FirebaseFirestore.instance.collection('products').where('bought', isEqualTo: true).get();
+  WriteBatch batch = FirebaseFirestore.instance.batch();
 
   for (QueryDocumentSnapshot product in products.docs) {
-    product.reference.delete();
+    batch.delete(product.reference);
   }
+
+  batch.commit();
 }
 
 Future createUniqueProduct(Product product) async {
