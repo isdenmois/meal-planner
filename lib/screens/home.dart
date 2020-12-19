@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:meal_planner/screens/meals/meals_page.dart';
 import 'package:meal_planner/screens/products/products-list_page.dart';
 import 'package:meal_planner/screens/recipe/recipe-list_page.dart';
 import 'package:meal_planner/services/change-navigation-bar-color.dart';
@@ -37,19 +38,21 @@ class HomeScreen extends StatelessWidget {
     changeNavigationBarColor(theme.bottomNavigationBarTheme.backgroundColor, theme.brightness);
 
     return DefaultTabController(
-        length: 2,
+        length: 3,
         child: Scaffold(
             bottomNavigationBar: Container(
               decoration: brightness == Brightness.light ? lightShadow : darkShadow,
               child: TabBar(
                 indicator: BoxDecoration(),
                 tabs: <Tab>[
+                  Tab(icon: Icon(Icons.home)),
                   Tab(icon: Icon(Icons.assignment_outlined)),
                   Tab(icon: Icon(Icons.bookmark_outlined)),
                 ],
               ),
             ),
             body: TabBarView(children: <Widget>[
+              MealsPage(),
               ProductListPage(),
               RecipeListPage(),
             ])));
