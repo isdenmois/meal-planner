@@ -58,7 +58,7 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final percent = 1 - shrinkOffset / expandedHeight;
+    final percent = 1 - shrinkOffset / (expandedHeight - minHeight);
     final theme = Theme.of(context);
     final radius = Radius.circular(30 * percent);
 
