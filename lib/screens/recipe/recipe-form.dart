@@ -87,6 +87,8 @@ class _RecipeFormState extends State<RecipeForm> {
         .where((ingredient) => ingredient != null && ingredient.length > 0)
         .toList();
 
+    ingredients.sort();
+
     Recipe result = Recipe(
       id: widget.initial?.id,
       title: form.value['title'],
