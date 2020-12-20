@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_planner/screens/recipe/recipe-add_page.dart';
 import 'package:meal_planner/screens/recipe/recipe-view_page.dart';
 import 'package:meal_planner/screens/recipe/recipe_repository.dart';
+import 'package:meal_planner/widgets/image.dart';
 import 'package:meal_planner/widgets/stream-progress-builder.dart';
 
 import 'recipe.dart';
@@ -83,13 +83,9 @@ class RecipeItem extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Hero(
-                    tag: 'recipe/${recipe.id}',
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: recipe.imageURL != null
-                            ? CachedNetworkImage(imageUrl: recipe.imageURL, fit: BoxFit.cover, width: 90, height: 90)
-                            : Container(width: 90, height: 90, color: Colors.red)),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: ImageWidget(imageUrl: recipe.imageURL, width: 90, height: 90),
                   ),
                   Container(width: 15),
                   Flexible(

@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_planner/screens/products/product.dart';
 import 'package:meal_planner/screens/products/product_repository.dart';
 import 'package:meal_planner/screens/recipe/recipe-edit_page.dart';
 import 'package:meal_planner/screens/recipe/recipe_repository.dart';
 import 'package:meal_planner/screens/recipe/widgets/recipe-header.dart';
+import 'package:meal_planner/widgets/image.dart';
 
 import 'recipe.dart';
 
@@ -55,9 +55,7 @@ class RecipeView extends StatelessWidget {
   List<Widget> buildHeader(BuildContext context, innerBoxIsScrolled) {
     return [
       RecipeHeader(
-        image: recipe.imageURL != null
-            ? CachedNetworkImage(imageUrl: recipe.imageURL, fit: BoxFit.cover)
-            : Container(color: Colors.red),
+        image: ImageWidget(imageUrl: recipe.imageURL),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
