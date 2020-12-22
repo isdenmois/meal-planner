@@ -33,8 +33,9 @@ class CurrentMeal extends StatelessWidget {
 class MealPreview extends StatelessWidget {
   final Meal meal;
   final Recipe recipe;
+  final GlobalKey gkey;
 
-  MealPreview({this.meal, this.recipe});
+  MealPreview({this.meal, this.recipe}) : gkey = GlobalKey(debugLabel: meal.id);
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,8 @@ class MealPreview extends StatelessWidget {
           color: Color(0xFFF7F5FF),
           child: InkWell(
             onTap: () => openRecipeViewScreen(context),
+            onLongPress: () => openMealMenu(context),
+            key: gkey,
             child: Padding(
               padding: EdgeInsets.all(15),
               child: Row(
@@ -148,6 +151,20 @@ class MealPreview extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => RecipeViewScreen(recipe: recipe)),
     );
+  }
+
+  openMealMenu(BuildContext context) async {
+    RenderBox box = gkey.currentContext.findRenderObject();
+    Offset offset = box.localToGlobal(Offset.zero);
+    RelativeRect position = RelativeRect.fromLTRB(0, offset.dy, 0, 0);
+
+    final result = await showMenu(context: context, position: position, items: [
+      PopupMenuItem(value: 'delete', child: Text("Delete")),
+    ]);
+
+    if (result == 'delete') {
+      removeMeal(meal.id);
+    }
   }
 }
 

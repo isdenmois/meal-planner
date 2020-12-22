@@ -30,3 +30,7 @@ Future createMeal(Recipe recipe, DateTime date, int people) {
 Future updateMeal(String id, Map<String, dynamic> data) {
   return _collection.doc(id).update(data);
 }
+
+Future removeMeal(String id) {
+  return _collection.doc(id).delete();
+}
