@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:meal_planner/screens/meals/meal.dart';
 import 'package:meal_planner/screens/meals/meals_picker.dart';
 import 'package:meal_planner/screens/recipe/recipe-view_page.dart';
@@ -65,8 +66,37 @@ class MealPreview extends StatelessWidget {
                           onTap: () => changeDate(context),
                           child: Text(formatDate(meal.from), style: TextStyle(fontSize: 12, color: Color(0xFF8A86AC))),
                         ),
-                        SizedBox(height: 10),
-                        Text('${meal.days} days', style: TextStyle(fontSize: 12, color: Color(0xFF8A86AC))),
+                        Stack(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 12, left: 20, right: 30, bottom: 10),
+                              child: Text('${meal.days} ${meal.days > 1 ? "days" : "day"}',
+                                  style: TextStyle(fontSize: 12, color: Color(0xFF8A86AC))),
+                            ),
+                            Positioned(
+                              left: 0,
+                              top: 0,
+                              child: FlatButton(
+                                onPressed: substractDay,
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                minWidth: 0,
+                                padding: EdgeInsets.only(right: 30),
+                                child: SvgPicture.asset('assets/cookie-bite.svg'),
+                              ),
+                            ),
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              child: FlatButton(
+                                onPressed: addDay,
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                minWidth: 0,
+                                padding: EdgeInsets.only(left: 20, right: 10),
+                                child: SvgPicture.asset('assets/cookie.svg'),
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -101,6 +131,16 @@ class MealPreview extends StatelessWidget {
     if (date != null && date != meal.from) {
       updateMeal(meal.id, {'date': date});
     }
+  }
+
+  addDay() {
+    updateMeal(meal.id, {'days': meal.days + 1});
+  }
+
+  substractDay() {
+    if (meal.days <= 1) return;
+
+    updateMeal(meal.id, {'days': meal.days - 1});
   }
 
   openRecipeViewScreen(BuildContext context) {

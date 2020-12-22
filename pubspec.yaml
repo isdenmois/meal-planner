@@ -28,6 +28,7 @@ dependencies:
   firebase_auth: ^0.18.4+1
   firebase_core: 0.5.3
   firebase_storage: ^5.2.0
+  flutter_svg: ^0.19.1
   image_picker: ^0.6.7+15
   reactive_forms: ^7.6.2
   uuid: ^2.2.2
@@ -47,6 +48,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - no-meal.jpg
+    - cookie-bite.svg
+    - cookie.svg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
