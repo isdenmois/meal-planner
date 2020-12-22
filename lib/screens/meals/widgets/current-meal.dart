@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_planner/screens/meals/meal.dart';
+import 'package:meal_planner/screens/meals/meals_picker.dart';
 import 'package:meal_planner/screens/recipe/recipe-view_page.dart';
 import 'package:meal_planner/screens/recipe/recipe.dart';
 import 'package:meal_planner/widgets/image.dart';
@@ -103,8 +104,10 @@ class EmptyMeal extends StatelessWidget {
               Text('You have to choose or you will starve', style: TextStyle(fontSize: 14, color: Color(0xFF8A86AC))),
               SizedBox(height: 20),
               InkWell(
+                onTap: () => openMealsPickerDialog(context),
                 child: Container(
-                  decoration: BoxDecoration(color: Color(0xFF5C2CEC), borderRadius: BorderRadius.all(Radius.circular(25))),
+                  decoration:
+                      BoxDecoration(color: Color(0xFF5C2CEC), borderRadius: BorderRadius.all(Radius.circular(25))),
                   padding: EdgeInsets.only(left: 60, right: 60, top: 10, bottom: 10),
                   child: Text('Pick one', style: TextStyle(color: Colors.white, fontSize: 20)),
                 ),
@@ -114,6 +117,10 @@ class EmptyMeal extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  openMealsPickerDialog(BuildContext context) {
+    showDialog(context: context, builder: (_) => MealsPickerDialog.dialogBuilder(date: date));
   }
 }
 

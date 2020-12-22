@@ -18,3 +18,11 @@ Stream<Recipe> mealRecipe(Meal meal) {
 
   return meal.recipe.snapshots().map((s) => Recipe.fromJson(s.id, s.data()));
 }
+
+Future createMeal(Recipe recipe, DateTime date, int people) {
+  return _collection.add({
+    'recipe': FirebaseFirestore.instance.collection('recipes').doc(recipe.id),
+    'days': recipe.portion > 0 ? recipe.portion ~/ people : 1,
+    'date': date,
+  });
+}

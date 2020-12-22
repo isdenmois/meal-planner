@@ -10,7 +10,7 @@ class ImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl == null) return Container(color: Colors.red);
+    if (imageUrl == null) return Container(color: Colors.red, width: width, height: height);
 
     return CachedNetworkImage(imageUrl: imageUrl, fit: BoxFit.cover, width: width, height: height);
   }
