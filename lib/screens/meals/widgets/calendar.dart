@@ -11,7 +11,7 @@ Set<String> createSet(List<Meal> meals) {
   for (Meal meal in meals) {
     date = meal.from;
 
-    while (date.difference(meal.to).isNegative) {
+    while (date.isBefore(meal.to)) {
       result.add(format(date));
       date = date.add(Duration(days: 1));
     }
@@ -41,16 +41,13 @@ class MealsCalendar extends StatelessWidget {
   final now = DateTime.now();
   final onChange;
 
-  MealsCalendar({this.selected, this.onChange, meals})
-      : mealDates = createSet(meals);
+  MealsCalendar({this.selected, this.onChange, meals}) : mealDates = createSet(meals);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         height: 60,
-        decoration: BoxDecoration(
-            color: Color(0xFFF7F5FF),
-            borderRadius: BorderRadius.all(Radius.circular(30))),
+        decoration: BoxDecoration(color: Color(0xFFF7F5FF), borderRadius: BorderRadius.all(Radius.circular(30))),
         padding: EdgeInsets.only(left: 20, right: 20),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -99,12 +96,10 @@ class Day extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(weekdays[day.weekday],
-                style: TextStyle(color: color, fontSize: 11)),
+            Text(weekdays[day.weekday], style: TextStyle(color: color, fontSize: 11)),
             SizedBox(height: 4),
             Text(day.day.toString().padLeft(2, '0'),
-                style: TextStyle(
-                    color: color, fontSize: 20, fontWeight: FontWeight.bold)),
+                style: TextStyle(color: color, fontSize: 20, fontWeight: FontWeight.bold)),
             SizedBox(height: 3),
             Container(height: 6, width: 6, decoration: hasMeal ? s : null),
           ],

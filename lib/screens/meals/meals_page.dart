@@ -16,8 +16,8 @@ class MealsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Meal planner')),
       body: StreamProgressBuilder<List<Meal>>(
-          stream: _meals,
-          builder: (_, meals) => MealsBody(meals: meals),
+        stream: _meals,
+        builder: (_, meals) => MealsBody(meals: meals),
       ),
     );
   }
@@ -52,7 +52,7 @@ class MealsBodyState extends State<MealsBody> {
 
   @override
   Widget build(BuildContext context) {
-    final meal = widget.meals.firstWhere((m) => m.from.difference(selected).isNegative && selected.difference(m.to).isNegative, orElse: () => null);
+    final meal = widget.meals.firstWhere((m) => isMealSelected(m, selected), orElse: () => null);
 
     return ListView(
       padding: EdgeInsets.all(15),
@@ -62,4 +62,11 @@ class MealsBodyState extends State<MealsBody> {
       ],
     );
   }
+}
+
+bool isMealSelected(Meal meal, DateTime selected) {
+  final from = meal.from.subtract(Duration(hours: meal.from.hour));
+  final to = meal.to.subtract(Duration(hours: meal.from.hour));
+
+  return selected.isAfter(from) && selected.isBefore(to);
 }
