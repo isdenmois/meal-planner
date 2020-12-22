@@ -26,3 +26,7 @@ Future createMeal(Recipe recipe, DateTime date, int people) {
     'date': date,
   });
 }
+
+Future updateMeal(String id, Map<String, dynamic> data) {
+  return _collection.doc(id).update(data);
+}

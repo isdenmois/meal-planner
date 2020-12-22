@@ -61,7 +61,10 @@ class MealPreview extends StatelessWidget {
                       children: [
                         Text(recipe.title, style: TextStyle(fontSize: 20)),
                         SizedBox(height: 10),
-                        Text(formatDate(meal.from), style: TextStyle(fontSize: 12, color: Color(0xFF8A86AC))),
+                        InkWell(
+                          onTap: () => changeDate(context),
+                          child: Text(formatDate(meal.from), style: TextStyle(fontSize: 12, color: Color(0xFF8A86AC))),
+                        ),
                         SizedBox(height: 10),
                         Text('${meal.days} days', style: TextStyle(fontSize: 12, color: Color(0xFF8A86AC))),
                       ],
@@ -85,6 +88,19 @@ class MealPreview extends StatelessWidget {
       Text('Ingredients', style: TextStyle(fontSize: 18)),
       ...recipe.ingredients.map((ingredient) => IngredientWidget(ingredient)),
     ];
+  }
+
+  changeDate(BuildContext context) async {
+    final DateTime date = await showDatePicker(
+      context: context,
+      initialDate: meal.from,
+      firstDate: DateTime.now().subtract(Duration(days: 7)),
+      lastDate: DateTime.now().add(Duration(days: 30)),
+    );
+
+    if (date != null && date != meal.from) {
+      updateMeal(meal.id, {'date': date});
+    }
   }
 
   openRecipeViewScreen(BuildContext context) {
