@@ -43,29 +43,32 @@ class MealPreview extends StatelessWidget {
         Card(
           margin: EdgeInsets.only(top: 30),
           color: Color(0xFFF7F5FF),
-          child: Padding(
-            padding: EdgeInsets.all(15),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: ImageWidget(imageUrl: recipe.imageURL, width: 90, height: 90),
-                ),
-                SizedBox(width: 15),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(recipe.title, style: TextStyle(fontSize: 20)),
-                      SizedBox(height: 10),
-                      Text(formatDate(meal.from), style: TextStyle(fontSize: 12, color: Color(0xFF8A86AC))),
-                      SizedBox(height: 10),
-                      Text('${meal.days} days', style: TextStyle(fontSize: 12, color: Color(0xFF8A86AC))),
-                    ],
+          child: InkWell(
+            onTap: () => openRecipeViewScreen(context),
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: ImageWidget(imageUrl: recipe.imageURL, width: 90, height: 90),
                   ),
-                ),
-              ],
+                  SizedBox(width: 15),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(recipe.title, style: TextStyle(fontSize: 20)),
+                        SizedBox(height: 10),
+                        Text(formatDate(meal.from), style: TextStyle(fontSize: 12, color: Color(0xFF8A86AC))),
+                        SizedBox(height: 10),
+                        Text('${meal.days} days', style: TextStyle(fontSize: 12, color: Color(0xFF8A86AC))),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -82,6 +85,13 @@ class MealPreview extends StatelessWidget {
       Text('Ingredients', style: TextStyle(fontSize: 18)),
       ...recipe.ingredients.map((ingredient) => IngredientWidget(ingredient)),
     ];
+  }
+
+  openRecipeViewScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RecipeViewScreen(recipe: recipe)),
+    );
   }
 }
 
