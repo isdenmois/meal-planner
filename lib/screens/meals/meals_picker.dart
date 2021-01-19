@@ -33,21 +33,23 @@ class _MealsPickerDialogState extends State<MealsPickerDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            StreamProgressBuilder<List<Recipe>>(
-              stream: _recipes,
-              builder: (context, recipes) {
-                return ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(left: 15, right: 15),
-                  children: recipes
-                      .map((recipe) => RecipeItem(
-                            recipe: recipe,
-                            selected: selected != null && selected.id == recipe.id,
-                            onSelect: selectRecipe,
-                          ))
-                      .toList(),
-                );
-              },
+            Flexible(
+              child: StreamProgressBuilder<List<Recipe>>(
+                stream: _recipes,
+                builder: (context, recipes) {
+                  return ListView(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(left: 15, right: 15),
+                    children: recipes
+                        .map((recipe) => RecipeItem(
+                              recipe: recipe,
+                              selected: selected != null && selected.id == recipe.id,
+                              onSelect: selectRecipe,
+                            ))
+                        .toList(),
+                  );
+                },
+              ),
             ),
             ...buildFooter(context),
           ],
