@@ -132,6 +132,8 @@ class RecipeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return ListTile(
       contentPadding: EdgeInsets.only(bottom: 15),
       onTap: select,
@@ -140,7 +142,7 @@ class RecipeItem extends StatelessWidget {
         child: ImageWidget(imageUrl: recipe.imageURL, width: 60, height: 60),
       ),
       title: Text(recipe.title),
-      trailing: selected ? Icon(Icons.check, color: Color(0xFF5C2CEC)) : null,
+      trailing: selected ? Icon(Icons.check, color: theme.accentColor) : null,
     );
   }
 

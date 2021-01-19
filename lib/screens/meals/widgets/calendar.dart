@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:meal_planner/screens/meals/meal.dart';
+import 'package:meal_planner/theme.dart';
 
 Set<String> createSet(List<Meal> meals) {
   final result = HashSet<String>();
@@ -45,9 +46,14 @@ class MealsCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = useColors(context);
+
     return Container(
         height: 60,
-        decoration: BoxDecoration(color: Color(0xFFF7F5FF), borderRadius: BorderRadius.all(Radius.circular(30))),
+        decoration: BoxDecoration(
+          color: colors.secondaryBackground,
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+        ),
         padding: EdgeInsets.only(left: 20, right: 20),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,

@@ -4,6 +4,7 @@ import 'package:meal_planner/screens/meals/meal.dart';
 import 'package:meal_planner/screens/meals/meals_picker.dart';
 import 'package:meal_planner/screens/recipe/recipe-view_page.dart';
 import 'package:meal_planner/screens/recipe/recipe.dart';
+import 'package:meal_planner/theme.dart';
 import 'package:meal_planner/widgets/image.dart';
 
 import '../meals_repository.dart';
@@ -39,12 +40,14 @@ class MealPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = useColors(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Card(
           margin: EdgeInsets.only(top: 30),
-          color: Color(0xFFF7F5FF),
+          color: colors.secondaryBackground,
           child: InkWell(
             onTap: () => openRecipeViewScreen(context),
             onLongPress: () => openMealMenu(context),

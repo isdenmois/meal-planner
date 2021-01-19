@@ -6,28 +6,18 @@ import 'package:meal_planner/screens/recipe/recipe-list_page.dart';
 import 'package:meal_planner/services/change-navigation-bar-color.dart';
 
 class HomeScreen extends StatelessWidget {
-  final lightShadow = BoxDecoration(
-    color: Colors.white,
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.25),
-        spreadRadius: 0,
-        blurRadius: 5,
-        offset: Offset(0, 1), // changes position of shadow
-      ),
-    ],
+  static const lightShadow = BoxShadow(
+    color: Colors.black26,
+    spreadRadius: 0,
+    blurRadius: 5,
+    offset: Offset(0, 1),
   );
 
-  final darkShadow = BoxDecoration(
-    color: Color(0xFF212121),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black12,
-        spreadRadius: 0,
-        blurRadius: 5,
-        offset: Offset(0, 1), // changes position of shadow
-      ),
-    ],
+  static const darkShadow = BoxShadow(
+    color: Colors.black54,
+    spreadRadius: 0,
+    blurRadius: 5,
+    offset: Offset(0, 1),
   );
 
   @override
@@ -41,7 +31,10 @@ class HomeScreen extends StatelessWidget {
         length: 3,
         child: Scaffold(
             bottomNavigationBar: Container(
-              decoration: brightness == Brightness.light ? lightShadow : darkShadow,
+              decoration: BoxDecoration(
+                color: theme.backgroundColor,
+                boxShadow: [brightness == Brightness.light ? lightShadow : darkShadow],
+              ),
               child: TabBar(
                 indicator: BoxDecoration(),
                 tabs: <Tab>[
