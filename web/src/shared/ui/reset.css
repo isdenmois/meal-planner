@@ -1,0 +1,16 @@
+h1,
+h3,
+h4,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}

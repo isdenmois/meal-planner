@@ -1,0 +1,33 @@
+.card {
+  background: var(--card);
+  border-radius: 5px;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.card__image {
+  object-fit: cover;
+  border-radius: 5px;
+  width: 90px;
+  height: 90px;
+}
+
+.card__image_empty {
+  background-color: red;
+}
+
+.card__body {
+  margin-left: 15px;
+}
+
+.card h3 {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+
+  color: #292550;
+}
+
+.card + .card {
+  margin-top: 15px;
+}
